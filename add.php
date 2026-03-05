@@ -12,6 +12,33 @@
 <body>
     <h1>Crud Application</h1>
 
+     <?php
+
+    include 'database.php';
+   
+   if(isset($_POST['add'])){
+
+    $getName = $_POST['name'];
+    $getEmail = $_POST['email'];
+    $getCity = $_POST['city'];
+    $getDescription = $_POST['description'];
+
+
+    $sql = "INSERT INTO students (name, email, city, description) VALUES ('$getName', '$getEmail', '$getCity', '$getDescription')";
+
+    $result=mysqli_query($conn, $sql);
+    if($result){
+        echo "Data inserted successfully";
+        header("Location: show.php");
+    }else{
+        echo "Error inserting data: " . mysqli_error($conn);
+        
+   }
+
+   }
+
+    ?>
+    
     <div class="container">
         <form method="POST">
             <div class="row">
@@ -44,38 +71,14 @@
                 </div>
                 <div class="col-md-6 mb-3">
                          <button type="submit" name="add" class="btn btn-primary">Submit</button>
+                         <button type="button" class="btn btn-secondary" onclick="window.location.href='show.php'">Back</button>
                 </div>
             </div>
         </form>
     </div>
 
 
-    <?php
-
-    include 'database.php';
    
-   if(isset($_POST['add'])){
-
-    $getName = $_POST['name'];
-    $getEmail = $_POST['email'];
-    $getCity = $_POST['city'];
-    $getDescription = $_POST['description'];
-
-
-    $sql = "INSERT INTO students (name, email, city, description) VALUES ('$getName', '$getEmail', '$getCity', '$getDescription')";
-
-    $result=mysqli_query($conn, $sql);
-    if($result){
-        echo "Data inserted successfully";
-        header("Location: show.php");
-    }else{
-        echo "Error inserting data: " . mysqli_error($conn);
-        
-   }
-
-   }
-
-    ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
